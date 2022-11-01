@@ -2,8 +2,8 @@ import React from "react";
 
 type NewComponentPropsType = {
     //students:Array<StudentType>
-    students:StudentType[]
-    topCars:CarType[]
+    students: StudentType[]
+    topCars: CarType[]
 }
 
 type StudentType = {
@@ -12,33 +12,38 @@ type StudentType = {
     age: number
 }
 type CarType = {
-    manufacturer:string,
-    model:string
+    manufacturer: string,
+    model: string
 }
 
-export const NewComponent = (props:NewComponentPropsType) =>{
+export const NewComponent = (props: NewComponentPropsType) => {
 
 
-    return(
+    return (
         <>
-        <div>{props.students.map(
-            (m)=>{return(
-                <div key={m.id}><span>{m.name} - {m.age}</span></div>
+            <div>{props.students.map(
+                (m) => {
+                    return (
+                        <div key={m.id}><span>{m.name} - {m.age}</span></div>
+                    )
+                }
             )}
-        )}
-        </div>
+            </div>
             <table>
                 {props.topCars.map(
-                    (m,i)=>{
-                        return(
-                                <tr>
-                                    <td>{m.manufacturer}</td>
-                                    <td>{m.model}</td>
-                                </tr>
+                    (m, i) => {
+                        return (<tbody key={i}>
+                            <tr>
+                                <td>{m.manufacturer}</td>
+                                <td>{m.model} -- {i}</td>
+                            </tr>
+                            </tbody>
                         )
                     }
                 )}
             </table>
+
+
         </>
     )
 }
