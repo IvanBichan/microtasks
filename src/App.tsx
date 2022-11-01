@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {MouseEvent,useState} from 'react';
 import './App.css';
 import {NewComponent} from "./NewComponent";
+import {Button} from "./components/Button";
 
 function App() {
   const [students, setStudents] = useState([
@@ -17,14 +18,44 @@ function App() {
     {id: 11, name: "Christopher", age: 100},
   ])
 
+  const [money, setMoney] = useState([
+    { banknots: 'Dollars', value: 100, number: ' a1234567890' },
+    { banknots: 'Dollars', value: 50, number: ' z1234567890' },
+    { banknots: 'RUBLS', value: 100, number: ' w1234567890' },
+    { banknots: 'Dollars', value: 100, number: ' e1234567890' },
+    { banknots: 'Dollars', value: 50, number: ' c1234567890' },
+    { banknots: 'RUBLS', value: 100, number: ' r1234567890' },
+    { banknots: 'Dollars', value: 50, number: ' x1234567890' },
+    { banknots: 'RUBLS', value: 50, number: ' v1234567890' },
+  ])
+
   const topCars = [
     {manufacturer:'BMW', model:'m5cs'},
     {manufacturer:'Mercedes', model:'e63s'},
     {manufacturer:'Audi', model:'rs6'}
   ]
+
+  const myFirstSubscriber = (e:MouseEvent<HTMLButtonElement>) => {
+    console.log('i`m Ivan')
+  }
+  const mySecondSubscriber = (e:MouseEvent<HTMLButtonElement>) => {
+    console.log('i`m Vasya')
+  }
+  
+  const button1Foo = (subscriber:string) => {
+    console.log(subscriber)
+  }
+  const button2Foo = (subscriber:string) => {
+    console.log(subscriber)
+  }
+
+  
     return (
         <div className="App">
             <NewComponent students={students} topCars={topCars}/>
+
+          <Button name={'Youtube chanel 1'} callBack={()=>button1Foo('hi 1')} />
+          <Button name={'Youtube chanel 2'} callBack={()=>button2Foo('hi 2')}/>
         </div>
     );
 }
