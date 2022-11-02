@@ -2,6 +2,9 @@ import React, {MouseEvent,useState} from 'react';
 import './App.css';
 import {NewComponent} from "./NewComponent";
 import {Button} from "./components/Button";
+import {MonyComponent} from "./components/MonyComponent";
+type FilterType = 'all' | 'rubl' | 'dollar'
+
 
 function App() {
   const [students, setStudents] = useState([
@@ -49,6 +52,19 @@ function App() {
     console.log(subscriber)
   }
 
+  const [filter,setFilter] = useState<FilterType>('all')
+
+  let currentMoney = money
+
+  if (filter === 'rubl') {
+    currentMoney = money.filter(f => f.banknots === 'RUBLS')
+  }
+  if (filter === 'dollar') {
+    currentMoney = currentMoney.filter(f => f.banknots === 'Dollars')
+  }
+  const onClickFilterHandler = (buttonName:FilterType) => {
+    setFilter(buttonName)
+  }
   
     return (
         <div className="App">
@@ -56,6 +72,24 @@ function App() {
 
           <Button name={'Youtube chanel 1'} callBack={()=>button1Foo('hi 1')} />
           <Button name={'Youtube chanel 2'} callBack={()=>button2Foo('hi 2')}/>
+
+          <MonyComponent currentMoney={currentMoney} onClickFilterHandler={onClickFilterHandler}/>
+
+         {/* <ul>
+            {currentMoney.map((m,i)=>{
+              return(
+                  <li key={i}>
+                    <span>{m.banknots} -- </span>
+                    <span>{m.value} -- </span>
+                    <span>{m.number}</span>
+                  </li>
+              )
+            })}
+          </ul>
+          <button onClick={()=>onClickFilterHandler('all')} >all</button>
+          <button onClick={()=>onClickFilterHandler('rubl')} >rubl</button>
+          <button onClick={()=>onClickFilterHandler('dollar')} >dollar</button>*/}
+
         </div>
     );
 }
