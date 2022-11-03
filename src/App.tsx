@@ -3,6 +3,8 @@ import './App.css';
 import {NewComponent} from "./NewComponent";
 import {Button} from "./components/Button";
 import {MonyComponent} from "./components/MonyComponent";
+import {InputUniversal} from "./components/InputUniversal";
+import {Input} from "./components/Input";
 type FilterType = 'all' | 'rubl' | 'dollar'
 
 
@@ -38,6 +40,12 @@ function App() {
     {manufacturer:'Audi', model:'rs6'}
   ]
 
+  let [message,setMessage] = useState([
+    {message:'message1'},
+    {message:'message2'},
+    {message:'message3'},
+  ])
+
   const myFirstSubscriber = (e:MouseEvent<HTMLButtonElement>) => {
     console.log('i`m Ivan')
   }
@@ -65,30 +73,39 @@ function App() {
   const onClickFilterHandler = (buttonName:FilterType) => {
     setFilter(buttonName)
   }
+
+  let [title,setTitle] = useState<string>('')
+
+  const addMassage = (title:string)=> {
+    let newMassage = [{message:title},...message,]
+    setMessage(newMassage)
+    setTitle('')
+  }
+  const callBackButtonHandler = () => {
+    addMassage(title)
+  }
+
   
     return (
         <div className="App">
             <NewComponent students={students} topCars={topCars}/>
-
           <Button name={'Youtube chanel 1'} callBack={()=>button1Foo('hi 1')} />
           <Button name={'Youtube chanel 2'} callBack={()=>button2Foo('hi 2')}/>
-
           <MonyComponent currentMoney={currentMoney} onClickFilterHandler={onClickFilterHandler}/>
 
-         {/* <ul>
-            {currentMoney.map((m,i)=>{
-              return(
-                  <li key={i}>
-                    <span>{m.banknots} -- </span>
-                    <span>{m.value} -- </span>
-                    <span>{m.number}</span>
-                  </li>
+          <div>
+            <InputUniversal sendMessage={addMassage}/>
+            <Input setTitle = {setTitle} title = {title}/>
+            <Button name={'add'} callBack={callBackButtonHandler} />
+            {message.map((el, index) => {
+              return (
+                  <div key={index}>{el.message}</div>
               )
             })}
-          </ul>
-          <button onClick={()=>onClickFilterHandler('all')} >all</button>
-          <button onClick={()=>onClickFilterHandler('rubl')} >rubl</button>
-          <button onClick={()=>onClickFilterHandler('dollar')} >dollar</button>*/}
+          </div>
+
+
+
 
         </div>
     );
